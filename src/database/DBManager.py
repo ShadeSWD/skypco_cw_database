@@ -1,5 +1,6 @@
 import psycopg2
 from config import DB_CONNECTION_STRING
+from config import EMPLOYERS_VACANCY_ID
 from src.utils.import_queries import import_queries
 
 
@@ -9,6 +10,14 @@ class DBManager:
         self.queries = import_queries()
         self.execute_query(self.queries['create table employers'])
         self.execute_query(self.queries['create table vacancies'])
+        self.update_employers()
+
+    def update_employers(self):
+        for emp_name, emp_id in EMPLOYERS_VACANCY_ID.items():
+            try:
+                self.execute_query(self.queries['update employers'], (emp_id, emp_name))
+            except psycopg2.errors.UniqueViolation:
+                pass
 
     def get_companies_and_vacancies_count(self) -> list:
         """
@@ -52,8 +61,8 @@ class DBManager:
         pass
 
     @staticmethod
-    def execute_query(query):
+    def execute_query(query, params=None):
         with psycopg2.connect(DB_CONNECTION_STRING) as conn:
             with conn.cursor() as cur:
-                cur.execute(query)
+                cur.execute(query, params)
             conn.commit()

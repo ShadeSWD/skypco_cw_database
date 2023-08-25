@@ -14,3 +14,7 @@ CREATE TABLE IF NOT EXISTS vacancies(
     vacancy_currency VARCHAR(10) NOT NULL,
     vacancy_url VARCHAR(255) UNIQUE NOT NULL
 );
+
+--update employers
+INSERT INTO employers (company_id, company_name)
+VALUES(%s, %s);
