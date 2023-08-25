@@ -97,14 +97,22 @@ class DBManager:
 
         return vacancies_data
 
-    def get_vacancies_with_keyword(self, keywords: list) -> list:
+    def get_vacancies_with_keyword(self, keyword: str) -> list:
         """
         Получает список всех вакансий, в названии которых содержатся переданные в метод слова
 
-        :param keywords: список ключевых слов, содержащихся в названии вакансии
+        :param keyword: ключевое слово в названии вакансии
         :return: [{"company_name": "name", "vacancy_name": "name", "salary": salary, "url": "url"}, {...}, ...]
         """
-        pass
+
+        vacancies_data = []
+        resp = self.execute_query(self.queries['get vacancies by keywords'], [f"%{keyword}%"])
+        for line in resp:
+            data = {"company_name": line[0], "vacancy_name": line[1], "salary_from": line[2], "salary_to": line[3],
+                    "url": line[4]}
+            vacancies_data.append(data)
+
+        return vacancies_data
 
     @staticmethod
     def execute_query(query, params=None):

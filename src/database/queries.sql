@@ -43,3 +43,8 @@ SELECT AVG((vacancy_salary_from + vacancy_salary_to) / 2) FROM vacancies;
 SELECT company_name, vacancy_name, vacancy_salary_from, vacancy_salary_to, vacancy_url
 FROM vacancies LEFT JOIN employers USING(company_id) WHERE vacancy_salary_from >=
 (SELECT AVG((vacancy_salary_from + vacancy_salary_to) / 2) FROM vacancies);
+
+--get vacancies by keywords
+SELECT company_name, vacancy_name, vacancy_salary_from, vacancy_salary_to, vacancy_url
+FROM vacancies LEFT JOIN employers USING(company_id) WHERE
+vacancy_name ILIKE %s;

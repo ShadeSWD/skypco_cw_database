@@ -62,6 +62,9 @@ class VacanciesParserApp:
             elif choice_menu == "3":
                 self.get_vacancies_with_higher_salary()
 
+            elif choice_menu == "4":
+                self.get_vacancies_with_keyword()
+
             elif choice_menu == "5":
                 break
             else:
@@ -84,6 +87,16 @@ class VacanciesParserApp:
     def get_vacancies_with_higher_salary(self):
         """Выводит все вакансии с зарплатой выше средней"""
         vacancies_data = self.db_manager.get_vacancies_with_higher_salary()
+        print('')
+        for line in vacancies_data:
+            print(f"{line['company_name']} - {line['vacancy_name']} от {line['salary_from']} до {line['salary_to']} "
+                  f"{line['url']}")
+
+    def get_vacancies_with_keyword(self):
+        """Получает список всех вакансий, в названии которых содержится ключевое слово"""
+        keyword = input("\nВведите ключевое слово: ").strip().lower()
+        vacancies_data = self.db_manager.get_vacancies_with_keyword(keyword)
+        print('')
         for line in vacancies_data:
             print(f"{line['company_name']} - {line['vacancy_name']} от {line['salary_from']} до {line['salary_to']} "
                   f"{line['url']}")
