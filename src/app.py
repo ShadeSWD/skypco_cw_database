@@ -21,8 +21,7 @@ class VacanciesParserApp:
                 self.search_vacancies()
 
             elif choice_menu == "2":
-                # self.display_vacancies()
-                pass
+                self.display_vacancies()
 
             elif choice_menu == "3":
                 break
@@ -45,3 +44,31 @@ class VacanciesParserApp:
                                                               number_of_vacancies=self.__amount_vacancy)
             if vacancies:
                 self.db_manager.update_vacancies(vacancies)
+
+    def display_vacancies(self) -> None:
+        """Отображение вакансий"""
+
+        while True:
+            print("\n1. Вывести количество вакансий всех компаний\n2. Отобразить весь список\n3. Отобразить вакансии с "
+                  "зарплатой выше средней\n4. Поиск по ключевому слову\n5. Выход")
+            choice_menu = input("Выберите действие: ")
+
+            if choice_menu == "1":
+                self.count_company_vacancies()
+                break
+
+            elif choice_menu == "2":
+                self.display_vacancies()
+                pass
+
+            elif choice_menu == "5":
+                break
+            else:
+                print("Ошибка ввода")
+
+    def count_company_vacancies(self):
+        """Выводит количество вакансий для каждой компании"""
+        quantities = self.db_manager.get_companies_and_vacancies_count()
+        print('')
+        for company, quantity in quantities.items():
+            print(f'{company}: {quantity}')

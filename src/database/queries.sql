@@ -26,3 +26,8 @@ SELECT company_id, company_name FROM employers;
 INSERT INTO vacancies (company_id, vacancy_name, vacancy_salary_from, vacancy_salary_to,
 vacancy_currency, vacancy_url)
 VALUES (%s, %s, %s, %s, %s, %s);
+
+--count company vacancies
+SELECT company_name, COUNT(*) AS vacancies_total
+FROM vacancies LEFT JOIN employers USING(company_id)
+GROUP BY company_name;

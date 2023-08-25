@@ -43,13 +43,18 @@ class DBManager:
             except psycopg2.errors.UniqueViolation:
                 pass
 
-    def get_companies_and_vacancies_count(self) -> list:
+    def get_companies_and_vacancies_count(self) -> dict:
         """
         Получает список всех компаний и количество вакансий у каждой компании.
 
         :return: [{"company_name": number of vacancies}, {...}, ...]
         """
-        pass
+
+        number_of_vacancies = {}
+        resp = self.execute_query(self.queries['count company vacancies'])
+        for line in resp:
+            number_of_vacancies[line[0]] = line[1]
+        return number_of_vacancies
 
     def get_all_vacancies(self) -> list:
         """
