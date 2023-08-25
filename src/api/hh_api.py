@@ -72,4 +72,3 @@ class HeadHunterAPI(BaseAPI):
     @staticmethod
     def get_requirements(vacancy) -> str:
         return vacancy['snippet']['requirement']
-    
