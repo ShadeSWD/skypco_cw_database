@@ -1,7 +1,15 @@
 import psycopg2
+from config import DB_CONNECTION_STRING
+from src.utils.import_queries import import_queries
 
 
 class DBManager:
+
+    def __init__(self):
+        self.queries = import_queries()
+        self.execute_query(self.queries['create table employers'])
+        self.execute_query(self.queries['create table vacancies'])
+
     def get_companies_and_vacancies_count(self) -> list:
         """
         Получает список всех компаний и количество вакансий у каждой компании.
@@ -42,3 +50,10 @@ class DBManager:
         :return: [{"company_name": "name", "vacancy_name": "name", "salary": salary, "url": "url"}, {...}, ...]
         """
         pass
+
+    @staticmethod
+    def execute_query(query):
+        with psycopg2.connect(DB_CONNECTION_STRING) as conn:
+            with conn.cursor() as cur:
+                cur.execute(query)
+            conn.commit()
