@@ -18,3 +18,11 @@ CREATE TABLE IF NOT EXISTS vacancies(
 --update employers
 INSERT INTO employers (company_id, company_name)
 VALUES(%s, %s);
+
+--get employers
+SELECT company_id, company_name FROM employers;
+
+--update vacancies
+INSERT INTO vacancies (company_id, vacancy_name, vacancy_salary_from, vacancy_salary_to,
+vacancy_currency, vacancy_url)
+VALUES (%s, %s, %s, %s, %s, %s);

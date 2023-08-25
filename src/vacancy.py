@@ -5,11 +5,12 @@ from datetime import datetime
 class Vacancy:
     """Класс, представляющий информацию о вакансии"""
 
-    def __init__(self, title: str, url: str, salary: dict, pub_date: str, requirements: str):
+    def __init__(self, title: str, company_id, url: str, salary: dict, pub_date: str, requirements: str):
         """
         Инициализация объекта Vacancy.
 
         :param title: Название вакансии.
+        :param company_id: id работодателя
         :param url: Ссылка на вакансию.
         :param salary: Зарплата {'min': int, 'max': int, 'currency': str}
         :param pub_date: Дата размещения вакансии в формате ISO
@@ -17,6 +18,7 @@ class Vacancy:
         """
 
         self.__title = self.validate_title(title)
+        self.company_id = self.validate_company_id(company_id)
         self.__url = self.validate_url(url)
         self.__salary = self.validate_salary(salary)
         self.__pub_date = self.validate_pub_date(pub_date)
@@ -122,6 +124,19 @@ class Vacancy:
             raise Exception('Пустое название вакансии')
 
     @staticmethod
+    def validate_company_id(emp_id: str) -> str:
+        """
+        Валидирует id работодателя
+
+        :param emp_id: название вакансии
+        :return: название вакансии или ошибка
+        """
+        if emp_id:
+            return emp_id
+        else:
+            raise Exception('Пустое id работодателя')
+
+    @staticmethod
     def validate_url(url: str) -> str:
         """
         Валидирует ссылку на вакансию
@@ -191,6 +206,6 @@ class Vacancy:
 
         :return: True, если все данные валидны, иначе False.
         """
-        if not all([self.title, self.url, self.salary, self.pub_date, self.requirements]):
+        if not all([self.title, self.company_id, self.url, self.salary, self.pub_date, self.requirements]):
             return False
         raise Exception('Некоторые атрибуты вакансии не заданы')
