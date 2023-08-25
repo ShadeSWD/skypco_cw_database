@@ -35,3 +35,6 @@ GROUP BY company_name;
 --get vacancies data
 SELECT company_name, vacancy_name, vacancy_salary_from, vacancy_salary_to, vacancy_url
 FROM vacancies LEFT JOIN employers USING(company_id);
+
+--get avg salary
+SELECT AVG((vacancy_salary_from + vacancy_salary_to) / 2) FROM vacancies;

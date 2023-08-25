@@ -79,7 +79,8 @@ class DBManager:
 
         :return: Среднее значение зарплаты
         """
-        pass
+        avg_salary = self.execute_query(self.queries['get avg salary'])
+        return round(avg_salary)
 
     def get_vacancies_with_higher_salary(self) -> list:
         """
