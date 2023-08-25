@@ -17,20 +17,21 @@ class HeadHunterAPI(BaseAPI):
         """
         super().__init__(url)
 
-    def search_vacancies(self, job_title: str, number_of_vacancies: int = 10) -> list:
+    def search_vacancies(self, employer_id: int, number_of_vacancies: int = 10) -> list:
         """
         Поиск вакансий на HeadHunter API.
 
         :param number_of_vacancies:
-        :param job_title: Заголовок вакансии для поиска.
+        :param employer_id: Id компании для поиска.
         :return: Список найденных вакансий.
         """
         params = {
-            'text': job_title,
+            'employer_id': employer_id,
             'per_page': number_of_vacancies,
             'pages': 1,
             'page': 0,
-            'only_with_salary': True
+            'only_with_salary': True,
+            'archived': False,
         }
 
         response = requests.get(url=self._base_url, params=params)
