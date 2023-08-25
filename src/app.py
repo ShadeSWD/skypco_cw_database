@@ -58,8 +58,8 @@ class VacanciesParserApp:
                 break
 
             elif choice_menu == "2":
-                self.display_vacancies()
-                pass
+                self.get_all_vacancies()
+                break
 
             elif choice_menu == "5":
                 break
@@ -72,3 +72,10 @@ class VacanciesParserApp:
         print('')
         for company, quantity in quantities.items():
             print(f'{company}: {quantity}')
+
+    def get_all_vacancies(self):
+        """Выводит все вакансии"""
+        vacancies_data = self.db_manager.get_all_vacancies()
+        for line in vacancies_data:
+            print(f"{line['company_name']} - {line['vacancy_name']} от {line['salary_from']} до {line['salary_to']} "
+                  f"{line['url']}")

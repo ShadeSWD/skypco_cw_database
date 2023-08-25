@@ -60,9 +60,18 @@ class DBManager:
         """
         Получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию
 
-        :return: [{"company_name": "name", "vacancy_name": "name", "salary": salary, "url": "url"}, {...}, ...]
+        :return: [{"company_name": "name", "vacancy_name": "name", "salary_from": salary, "salary_to": salary,
+        "url": "url"}, {...}, ...]
         """
-        pass
+
+        vacancies_data = []
+        resp = self.execute_query(self.queries['get vacancies data'])
+        for line in resp:
+            data = {"company_name": line[0], "vacancy_name": line[1], "salary_from": line[2], "salary_to": line[3],
+                    "url": line[4]}
+            vacancies_data.append(data)
+
+        return vacancies_data
 
     def get_avg_salary(self) -> float:
         """

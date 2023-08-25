@@ -31,3 +31,7 @@ VALUES (%s, %s, %s, %s, %s, %s);
 SELECT company_name, COUNT(*) AS vacancies_total
 FROM vacancies LEFT JOIN employers USING(company_id)
 GROUP BY company_name;
+
+--get vacancies data
+SELECT company_name, vacancy_name, vacancy_salary_from, vacancy_salary_to, vacancy_url
+FROM vacancies LEFT JOIN employers USING(company_id);
