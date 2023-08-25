@@ -88,7 +88,14 @@ class DBManager:
 
         :return: [{"company_name": "name", "vacancy_name": "name", "salary": salary, "url": "url"}, {...}, ...]
         """
-        pass
+        vacancies_data = []
+        resp = self.execute_query(self.queries['get vacancies with higher salary'])
+        for line in resp:
+            data = {"company_name": line[0], "vacancy_name": line[1], "salary_from": line[2], "salary_to": line[3],
+                    "url": line[4]}
+            vacancies_data.append(data)
+
+        return vacancies_data
 
     def get_vacancies_with_keyword(self, keywords: list) -> list:
         """

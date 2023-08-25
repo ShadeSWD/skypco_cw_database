@@ -55,11 +55,12 @@ class VacanciesParserApp:
 
             if choice_menu == "1":
                 self.count_company_vacancies()
-                break
 
             elif choice_menu == "2":
                 self.get_all_vacancies()
-                break
+
+            elif choice_menu == "3":
+                self.get_vacancies_with_higher_salary()
 
             elif choice_menu == "5":
                 break
@@ -76,6 +77,13 @@ class VacanciesParserApp:
     def get_all_vacancies(self):
         """Выводит все вакансии"""
         vacancies_data = self.db_manager.get_all_vacancies()
+        for line in vacancies_data:
+            print(f"{line['company_name']} - {line['vacancy_name']} от {line['salary_from']} до {line['salary_to']} "
+                  f"{line['url']}")
+
+    def get_vacancies_with_higher_salary(self):
+        """Выводит все вакансии с зарплатой выше средней"""
+        vacancies_data = self.db_manager.get_vacancies_with_higher_salary()
         for line in vacancies_data:
             print(f"{line['company_name']} - {line['vacancy_name']} от {line['salary_from']} до {line['salary_to']} "
                   f"{line['url']}")
