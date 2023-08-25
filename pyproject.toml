@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "skypco-cw-database"
+version = "0.1.0"
+description = "Serves for collecting vacancies data from hh.ru into database"
+authors = ["ShadeSWD <seawolfy60@gmail.com>"]
+readme = "README.md"
+packages = [{include = "skypco_cw_database"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+psycopg2 = "^2.9.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
